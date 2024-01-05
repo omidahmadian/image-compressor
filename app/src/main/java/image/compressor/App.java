@@ -3,6 +3,13 @@
  */
 package image.compressor;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.*;
+import java.util.stream.Stream;
+
+import net.coobird.thumbnailator.Thumbnails;
+
 public class App {
     public String getGreeting() {
         return "Hello World!";
@@ -10,5 +17,44 @@ public class App {
 
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
+
+        String currentDir = System.getProperty("user.dir");
+        String outputDir = currentDir + File.separator + "compressed";
+
+        System.out.println("Starting image compression...");
+
+
+        try {
+            System.out.println("Creating output directory...");
+
+            Files.createDirectories(Paths.get(outputDir));
+            System.out.println("Output directory created at: " + outputDir);
+
+        } catch (IOException e) {
+            System.out.println("Error creating output directory: " + e.getMessage());
+            return;
+        }
+
+        try (Stream<Path> paths = Files.walk(Paths.get(currentDir))) {
+            paths.filter(Files::isRegularFile)
+                    .filter(p -> p.toString().endsWith(".jpg"))
+                    .forEach(p -> compressImage(p, Paths.get(outputDir, p.getFileName().toString())));
+        } catch (IOException e) {
+            System.out.println("Error reading files: " + e.getMessage());
+        }
+        System.out.println("Image compression completed.");
+
+    }
+
+    private static void compressImage(Path inputPath, Path outputPath) {
+          System.out.println("image at: " + inputPath + " -> " + outputPath);
+        try {
+            Thumbnails.of(inputPath.toFile())
+                    .scale(1) // scale by the same size
+                    .outputQuality(0.5) // reduce quality by 50%
+                    .toFile(outputPath.toFile());
+        } catch (IOException e) {
+            System.out.println("Error compressing image: " + e.getMessage());
+        }
     }
 }
