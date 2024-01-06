@@ -8,19 +8,6 @@ The main method of the application takes two arguments: the input path and the o
 
 ```java
 compressImage(Path inputPath, Path outputPath)
-Sure, here's a basic README.md file for your project. You can add more details as per your project's requirements.
-
-```markdown
-# Image Compression Java Application
-
-This is a simple Java application that compresses images. It uses the Thumbnails library to scale and reduce the quality of images, thereby compressing them.
-
-## Usage
-
-The main method of the application takes two arguments: the input path and the output path. The input path is the location of the image you want to compress, and the output path is where the compressed image will be saved.
-
-```java
-compressImage(Path inputPath, Path outputPath)
 ```
 
 ## Dependencies
@@ -38,4 +25,4 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
-```
+
