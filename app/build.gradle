@@ -32,6 +32,8 @@ application {
     mainClass = 'image.compressor.App'
 }
 
+version = '1.0.0' // Set the release version here
+
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
